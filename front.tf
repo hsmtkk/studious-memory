@@ -47,3 +47,7 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
   service     = google_cloud_run_v2_service.front.name
   policy_data = data.google_iam_policy.noauth.policy_data
 }
+
+output "front_uri" {
+  value = google_cloud_run_v2_service.front.uri
+}
