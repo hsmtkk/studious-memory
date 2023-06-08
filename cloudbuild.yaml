@@ -1,1 +1,33 @@
-steps: {}
+steps:
+  - name: gcr.io/kaniko-project/executor:latest
+    id: front-build
+    waitFor: ["-"]
+    args:
+      - --cache=true
+      - --cache-ttl=24h
+      - --destination=todo
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    id: front-deploy
+    waitFor:
+      - front-build
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - front
+      - --execution-environment=gen2
+      - --image=todo
+      - --region=${_REGION}
+  - name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    id: back-deploy
+    waitFor: ["-"]
+    dir: back
+    entrypoint: gcloud
+    args:
+      - functions
+      - deploy
+      - back
+      - --gen2
+      - --region=${_REGION}
+substitutions:
+  _REGION: us-central1
