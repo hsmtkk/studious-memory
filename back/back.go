@@ -1,4 +1,4 @@
-package back
+package function
 
 import (
 	"encoding/json"
@@ -13,7 +13,7 @@ import (
 const URL_PREFIX = "http://webservice.recruit.co.jp/hotpepper/gourmet/v1/"
 
 func init() {
-	functions.HTTP("EntyrPoint", EntryPoint)
+	functions.HTTP("EntryPoint", EntryPoint)
 }
 
 func EntryPoint(w http.ResponseWriter, r *http.Request) {
