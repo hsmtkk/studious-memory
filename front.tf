@@ -22,7 +22,7 @@ resource "google_cloud_run_v2_service" "front" {
         name  = "BACK_URL"
         value = google_cloudfunctions2_function.back.service_config[0].uri
       }
-      image = "${var.region}-docker.pkg.dev/${var.project_id}/registry/front:latest"
+      image = "us-docker.pkg.dev/cloudrun/container/hello"
     }
     scaling {
       min_instance_count = 0

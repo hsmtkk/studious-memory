@@ -1,0 +1,1 @@
+gcloud functions delete back --region=us-central1 --gen2

@@ -3,4 +3,4 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY . .
-CMD streamlit run front.py
+CMD streamlit run front.py --server.address 0.0.0.0 --server.port $PORT
