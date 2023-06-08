@@ -13,9 +13,7 @@ def run() -> None:
         keyword = st.text_input("keyword", value="新宿")
         submitted = st.form_submit_button("送信")
         if submitted:
-            st.write("keyword")
             shop_locations = gourmet_search(keyword)
-            st.write(shop_locations)
             df = pd.DataFrame.from_dict(shop_locations)
             st.dataframe(df)
             st.map(df)
