@@ -49,6 +49,17 @@ func entryPoint(w http.ResponseWriter, r *http.Request) ([]byte, int, error) {
 }
 
 type apiResponse struct {
+	Results apiResponseResults `json:"results"`
+}
+
+type apiResponseResults struct {
+	Shop []apiResponseResultsShop `json:"shop"`
+}
+
+type apiResponseResultsShop struct {
+	Name string  `json:"name"`
+	Lat  float64 `json:"lat"`
+	Lng  float64 `json:"lng"`
 }
 
 type shopLocation struct {
@@ -85,5 +96,15 @@ func gourmetSearch(apiKey, keyword string) ([]shopLocation, error) {
 
 	fmt.Println(string(respBytes))
 
-	return nil, nil
+	apiResponse := apiResponse{}
+	if err := json.Unmarshal(respBytes, &apiResponse); err != nil {
+		return nil, fmt.Errorf("failed to decode JSON: %w", err)
+	}
+
+	shopLocations := []shopLocation{}
+	for _, shop := range apiResponse.Results.Shop {
+		shopLocations = append(shopLocations, shopLocation{Name: shop.Name, Lat: shop.Lat, Lon: shop.Lng})
+	}
+
+	return shopLocations, nil
 }
