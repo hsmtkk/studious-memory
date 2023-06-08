@@ -7,6 +7,7 @@ name = "pypi"
 streamlit = "*"
 requests = "*"
 pandas = "*"
+google-auth = "*"
 
 [dev-packages]
 
