@@ -22,7 +22,7 @@ resource "google_cloud_run_v2_service" "front" {
         name  = "BACK_URL"
         value = google_cloudfunctions2_function.back.service_config[0].uri
       }
-      image = "path-to-container"
+      image = "${var.region}-docker.pkg.dev/${var.project_id}/registry/front:latest"
     }
     scaling {
       min_instance_count = 0
