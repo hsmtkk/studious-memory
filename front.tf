@@ -14,7 +14,8 @@ resource "google_artifact_registry_repository" "registry" {
 }
 
 resource "google_cloud_run_v2_service" "front" {
-  name = "front"
+  location = var.region
+  name     = "front"
   template {
     containers {
       env {
